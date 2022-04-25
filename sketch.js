@@ -21,7 +21,6 @@ function draw() {
   let sat = slider.value()
   angle = slider2.value()
 
-
 for (let i = 0; i < angle; i++) {
   rotate(angle);
   strokeWeight(15)
