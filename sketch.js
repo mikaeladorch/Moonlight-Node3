@@ -1,39 +1,36 @@
-let img;
-let gui;
-let b;
-let s = 'moonlight';
+let cursorImg;
+let angle;
+let slider
+let slider2
 
+function preload(){
+  cursorImg = loadImage('assets/MacRainbowCursor.png')
+}
 function setup() {
   createCanvas(400, 400);
-  gui = createGui();
-  b = createButton("Button", 125, 100);
-  t = createToggle("Toggle", 125, 50);
+  noCursor();
+  background(220);
+  colorMode(HSB, 360, 150, 100, 1);
+  slider = createSlider(100,255,50)
+  slider2 = createSlider(6,32,6)
 }
 
 function draw() {
-  background(255,193,204);
-  drawGui();
+  image(cursorImg, mouseX, mouseY, 20,20);
+  translate(width / 2, height / 2);
+  let sat = slider.value()
+  angle = slider2.value()
 
-  if(b.isPressed) {
-    print(b.label + " is " + b.val);
 
-  }
-  
-   if (b.isHeld) {
-    fill(50);
-    textSize(50);
-    text(s, 190, 200, 50, 200);
-    textAlign(CENTER, CENTER);
-  }
-  
-  if (t.val){
-   beginShape(TRIANGLE_FAN);
-vertex(57.5, 50);
-vertex(57.5, 15);
-vertex(92, 50);
-vertex(57.5, 85);
-vertex(22, 50);
-vertex(57.5, 15);
-endShape();
-  }
+for (let i = 0; i < angle; i++) {
+  rotate(angle);
+  strokeWeight(15)
+  stroke(mouseX, sat, sat, 0.5);
+  line(mouseX, mouseY, pmouseX, pmouseY);
+
+  push();
+  scale(1,-1);
+  line(mouseX, mouseY, pmouseX, pmouseY);
+  pop();
+}
 }
